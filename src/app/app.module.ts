@@ -14,6 +14,7 @@ import { NewEventComponent } from './event/new-event/new-event.component';
 import { NewGamerComponent } from './gamer/new-gamer/new-gamer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './gamer/login/login.component';
+import { NotificationComponent } from './notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { LoginComponent } from './gamer/login/login.component';
     NewEventComponent,
     NewGamerComponent,
     NavbarComponent,
-    LoginComponent
+    LoginComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
