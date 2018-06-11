@@ -1,0 +1,38 @@
+<form
+class="form-group"
+[formGroup]="gamerForm"
+>
+  <label for="username">Username</label><br/>
+  <input
+    type="text"
+    class="form-control"
+    id="username"
+    formControlName="username"
+  ><br/>
+  <label for="password">Password</label><br/>
+  <input
+    type="password"
+    class="form-control"
+    formControlName="password"
+    id="password"
+  ><br/>
+  <label for="repassword">Ripeti Password</label><br/>
+  <input
+    type="password"
+    class="form-control"
+    formControlName="repassword"
+    id="repassword"
+  ><br/>
+  <label for="email">E-Mail</label><br/>
+  <input
+    type="text"
+    class="form-control"
+    formControlName="email"
+    id="email"
+  ><br/>
+  <button type="button"
+    (click)="newGamer()"
+    [disabled]="!gamerForm.valid"
+  >Iscriviti</button>
+</form>
+<p *ngIf = "passwordMismatched">Password differenti</p>

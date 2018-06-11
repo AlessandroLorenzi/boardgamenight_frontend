@@ -1,0 +1,44 @@
+<form
+  [formGroup]="eventForm"
+>
+  Evento:
+  <input
+    formControlName="name"
+  />
+  <p>
+  ⏰ Inizio
+  <input
+    type="date"
+    formControlName="startdate"
+  />
+  <input
+    type="time"
+    formControlName="starttime"
+    step="1"
+  />
+  <br/>
+  ⏰ Fine
+  <input
+    type="date"
+    formControlName="enddate"
+  />
+  <input
+    type="time"
+    formControlName="endtime"
+    step="1"
+  /> <br/>
+  Organizzato da : <input
+    formControlName="org"
+  /> <br/>
+  🗺:
+  <input
+    formControlName="place"
+  />
+  </p>
+
+</form>
+<button type="button" (click)="onSaveEvent()" >Salva</button>
+<button type="button" (click)="toggleEditMode()">Annulla</button>
+
+
+<div *ngIf="eventSaved">Evento salvato!</div>

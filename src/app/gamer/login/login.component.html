@@ -1,0 +1,23 @@
+<form
+class="form-group"
+[formGroup]="loginForm"
+>
+  <label for="username">Username o email</label><br/>
+  <input
+    type="text"
+    class="form-control"
+    id="username"
+    formControlName="username"
+  ><br/>
+  <label for="password">Password</label><br/>
+  <input
+    type="password"
+    class="form-control"
+    formControlName="password"
+    id="password"
+  ><br/>
+  <button type="button"
+    (click)="login()"
+    [disabled]="!loginForm.valid"
+  >Login</button>
+</form>

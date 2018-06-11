@@ -1,0 +1,32 @@
+
+<div *ngIf="selectedEvent">
+<form
+  [formGroup]="eventForm"
+>
+  <input
+    formControlName="name"
+  />
+  <p>
+  ⏰
+  <input
+    formControlName="startdate"
+  /> -
+  <input
+    formControlName="enddate"
+  /> <br/>
+  Organizzato da : <input
+    formControlName="org"
+  /> <br/>
+  🗺:
+  <input
+    formControlName="place"
+  />
+  </p>
+
+</form>
+
+<button type="button" (click)="onSaveEvent()" >Salva</button>
+<button type="button" (click)="toggleEditMode()">Annulla</button>
+</div>
+
+<div *ngIf="eventSaved">Evento salvato!</div>

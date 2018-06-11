@@ -1,0 +1,13 @@
+<div >
+<ul>
+  <li *ngFor="let event of eventList">
+    <strong>
+      <a routerLink="/event/{{event.id}}">
+        {{event.name}}</a>
+    </strong>
+    Starts: {{event.startdate}}
+  </li>
+</ul>
+<button type="button" (click)="newEvent()" >Nuovo Evento</button>
+
+</div>
