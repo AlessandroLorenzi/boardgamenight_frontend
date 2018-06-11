@@ -14,7 +14,6 @@ import { Event, Table } from '../../models';
 export class EventDetailsComponent implements OnInit {
   eventId: string;
   selectedEvent: Event;
-  deleted = false;
 
   tableForm = new FormGroup ({
     game: new FormControl('', Validators.required)
@@ -47,11 +46,7 @@ export class EventDetailsComponent implements OnInit {
   deleteEvent(){
     this.eventService.deleteEvent(this.eventId).subscribe(
       (data) => {
-        this.deleted = true;
-        setTimeout(
-          () => { this.returnToList() },
-          500
-        )
+        this.returnToList();
       },
       (error) => console.log(error)
     );
@@ -86,6 +81,5 @@ export class EventDetailsComponent implements OnInit {
   ngOnInit() {
 
   }
-
 
 }

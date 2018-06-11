@@ -12,7 +12,6 @@ import { Event } from '../../models';
 export class EventEditComponent implements OnInit {
   selectedEvent: Event;
   eventId: number;
-  eventSaved = false;
 
   eventForm: FormGroup;
 
@@ -48,14 +47,10 @@ export class EventEditComponent implements OnInit {
   onSaveEvent(){
     this.eventService.editEvent(this.eventId, this.eventForm.value).subscribe(
       (data) => {
-        this.eventSaved = true;
+        this.toggleEditMode();
       },
       (error) => console.log(error)
     );
-    setTimeout(
-      () => { this.toggleEditMode(); },
-      1000
-    )
   }
   toggleEditMode(){
      this.router.navigate(['..'], { relativeTo: this.route });

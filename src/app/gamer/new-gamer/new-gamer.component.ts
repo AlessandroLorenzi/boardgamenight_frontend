@@ -39,11 +39,7 @@ export class NewGamerComponent implements OnInit {
     newGamer.email =  this.gamerForm.value.email;
     this.gamerService.addGamer(newGamer).subscribe(
       (data)=> {
-        this.gamerSaved = true;
-        setTimeout(
-          () => { this.router.navigate(['/']); },
-          500
-        )
+        this.router.navigate(['/']);
       },
       (error)=> {console.log(error.error.message);}
     );

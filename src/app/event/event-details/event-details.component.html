@@ -10,7 +10,6 @@ Organizzato da : {{selectedEvent.org}} <br/>
 <a routerLink="/events" routerLinkActive="active">Lista Eventi</a>
 <button type="button" (click)="deleteEvent()">Elimina</button>
 
-
 <h3>Tavoli</h3>
 <ul>
   <li *ngFor="let table of selectedEvent.tables" > {{table.game}}
@@ -29,8 +28,4 @@ Organizzato da : {{selectedEvent.org}} <br/>
   >+</button>
 </form>
 
-</div>
-
-<div *ngIf="deleted">
-  Evento rimosso.
 </div>

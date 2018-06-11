@@ -12,7 +12,6 @@ import { Event } from '../../models';
 export class NewEventComponent implements OnInit {
   selectedEvent: Event;
   eventId: number;
-  eventSaved = false;
   eventForm = new FormGroup ({
     name: new FormControl('', Validators.required),
     startdate: new FormControl('', Validators.required),
@@ -42,11 +41,7 @@ export class NewEventComponent implements OnInit {
 
     this.eventService.newEvent(newEvent).subscribe(
       (data) => {
-        this.eventSaved = true;
-        setTimeout(
-          () => { this.toggleEditMode() },
-          500
-        )
+        this.toggleEditMode()
       },
       (error) => console.log(error)
     );
