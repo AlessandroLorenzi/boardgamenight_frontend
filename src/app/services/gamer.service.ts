@@ -2,19 +2,22 @@ import { Injectable } from '@angular/core';
 import { Event, Table, Gamer } from '../models';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class GamerService {
   constructor(
     private http: HttpClient
   ) { }
+  loggedInUser = new Subject();
+
   private access_token: string;
   private refresh_token: string;
   private refresh_token_timer;
 
   private gamerUrl = 'http://localhost:5000/v1/gamer/';
-  private authUrl = 'http://localhost:5000/auth';
-  private refreshUrl = 'http://localhost:5000/refresh';
+  private authUrl = 'http://localhost:5000/v1/auth';
+  private refreshUrl = 'http://localhost:5000/v1/refresh';
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -28,9 +31,22 @@ export class GamerService {
   addGamer (newGamer:Gamer) {
     return this.http.post(this.gamerUrl + '0', newGamer, this.httpOptions);
   }
+
   login (login:Gamer) {
-    return this.http.post(this.authUrl, login, this.httpOptions);
+    return new Promise<string>(
+      (resolve,reject) => {
+        this.http.post(this.authUrl, login, this.httpOptions).subscribe(
+          (data) => {
+            this.handle_jwt(data);
+            this.loggedInUser.next(login.username);
+            resolve("ok");
+          },
+          (error) => reject("No login")
+        )
+      }
+    );
   }
+
   handle_jwt(jwt){
     this.refresh_token = jwt.refresh_token;
     this.update_access_token(jwt.access_token);
@@ -39,7 +55,6 @@ export class GamerService {
   }
 
   refresh_jwt() {
-    console.log(this.refresh_token);
     let refreshHttpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -51,7 +66,6 @@ export class GamerService {
       ).subscribe(
       (data) =>
       {
-        console.log(data);
         this.update_access_token(data['access_token']);
       },
       (data) => console.log(data)

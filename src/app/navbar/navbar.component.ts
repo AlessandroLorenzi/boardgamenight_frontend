@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GamerService } from '../services/gamer.service';
 
 @Component({
   selector: 'app-navbar',
@@ -6,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
-  constructor() { }
-
+  username: string;
+  constructor(
+    private gamerService: GamerService,
+  ) {
+    this.gamerService.loggedInUser.subscribe(
+      username => this.set_username(username)
+    )
+  }
+  set_username(username){
+    this.username = username;
+  }
   ngOnInit() {
   }
 

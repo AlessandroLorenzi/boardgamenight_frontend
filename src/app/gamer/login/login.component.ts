@@ -27,11 +27,11 @@ export class LoginComponent implements OnInit {
     let login = new Gamer()
     login.username = this.loginForm.value['username'];
     login.password = this.loginForm.value['password'];
-    this.gamerService.login(login).subscribe(
+    this.gamerService.login(login).then(
       (data) => {
-        this.gamerService.handle_jwt(data);
-      },
-      (data) => {console.log(data)}
+        this.router.navigate(['/']);
+        console.log('OK');
+      }
     );
   }
 

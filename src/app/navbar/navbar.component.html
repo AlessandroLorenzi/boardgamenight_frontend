@@ -1,5 +1,15 @@
-<p>
-  <a routerLink="/register" routerLinkActive="active">Registrati</a> - 
-  <a routerLink="/login" routerLinkActive="active">Login</a>
+<div *ngIf="username">
+  <p>
+    Utente <em>{{username}}</em> -
+    <a routerLink="/logout" routerLinkActive="active">Logout</a>
+  </p>
+</div>
 
+<div *ngIf="!username">
+<p>
+  <a routerLink="/register" routerLinkActive="active">Registrati</a> -
+  <a routerLink="/login" routerLinkActive="active">Login</a>
 </p>
+</div>
+
+<hr />
