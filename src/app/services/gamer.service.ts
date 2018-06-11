@@ -84,7 +84,8 @@ export class GamerService {
 
   logout(){
     clearTimeout(this.refresh_token_timer);
-    this.access_token = '';
+    this.update_access_token('');
     this.refresh_token = '';
+    this.loggedInUser.next(null);
   }
 }

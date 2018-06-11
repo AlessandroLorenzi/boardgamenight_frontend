@@ -1,7 +1,7 @@
 <div *ngIf="username">
   <p>
     Utente <em>{{username}}</em> -
-    <a routerLink="/logout" routerLinkActive="active">Logout</a>
+    <a (click)="logout()" >Logout</a>
   </p>
 </div>
 

@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
     this.gamerService.login(login).then(
       (data) => {
         this.router.navigate(['/']);
-        console.log('OK');
       }
     );
   }
