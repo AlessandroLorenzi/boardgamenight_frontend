@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { GamerService } from '../../services/gamer.service';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Gamer } from '../../models';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-new-gamer',
@@ -22,6 +23,7 @@ export class NewGamerComponent implements OnInit {
 
   constructor(
     private gamerService: GamerService,
+    private notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -40,8 +42,15 @@ export class NewGamerComponent implements OnInit {
     this.gamerService.addGamer(newGamer).subscribe(
       (data)=> {
         this.router.navigate(['/']);
+        this.notificationService.addNotification({
+          title : 'Utente Creato', text : '', severity : 'success', id: 0
+        })
       },
-      (error)=> {console.log(error.error.message);}
+      (error)=> {
+        this.notificationService.addNotification({
+          title : 'Errore', text : 'impossibile creare l\'utente', severity : 'alert', id: 0
+        })
+      }
     );
   }
 

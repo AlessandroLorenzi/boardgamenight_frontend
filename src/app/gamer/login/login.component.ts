@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { GamerService } from '../../services/gamer.service';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Gamer } from '../../models';
+import { NotificationService } from '../../services/notification.service';
+
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private gamerService: GamerService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService,
+
   ) { }
 
   ngOnInit() {
@@ -29,7 +33,15 @@ export class LoginComponent implements OnInit {
     login.password = this.loginForm.value['password'];
     this.gamerService.login(login).then(
       (data) => {
+        this.notificationService.addNotification({
+          title : 'Benvenuto', text : 'Login effettuato', severity : 'alert', id: 0
+        });
         this.router.navigate(['/']);
+      },
+      (error) => {
+        this.notificationService.addNotification({
+          title : 'Errore', text : 'Utente o password errati', severity : 'alert', id: 0
+        })
       }
     );
   }
