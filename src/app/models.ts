@@ -22,3 +22,10 @@ export class Gamer {
       password: string;
       email: string;
 }
+
+export class Notification {
+      id: number;
+      title: string;
+      text: string;
+      severity: string;
+}
