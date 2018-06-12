@@ -4,6 +4,7 @@ import { EventService } from '../../services/event.service';
 import { TableService } from '../../services/table.service';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Event, Table } from '../../models';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-event-details',
@@ -23,7 +24,9 @@ export class EventDetailsComponent implements OnInit {
     private eventService: EventService,
     private tableService: TableService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService,
+
   ) {
     this.route.params.subscribe(
       params => {
@@ -46,9 +49,16 @@ export class EventDetailsComponent implements OnInit {
   deleteEvent(){
     this.eventService.deleteEvent(this.eventId).subscribe(
       (data) => {
+        this.notificationService.addNotification({
+          title : 'Evento eliminato', text : '', severity : 'success', id: 0
+        });
         this.returnToList();
       },
-      (error) => console.log(error)
+      (error) => {
+        this.notificationService.addNotification({
+          title : 'Errore durante l\'eliminazione' , text : 'Riprova piú tardi', severity : 'critical', id: 0
+        });
+      }
     );
 
   }

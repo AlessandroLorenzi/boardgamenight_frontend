@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EventService } from '../../services/event.service';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Event } from '../../models';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-event-edit',
@@ -25,7 +26,8 @@ export class NewEventComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService,
   ) {
   }
 
@@ -41,9 +43,16 @@ export class NewEventComponent implements OnInit {
 
     this.eventService.newEvent(newEvent).subscribe(
       (data) => {
+        this.notificationService.addNotification({
+          title : 'Evento aggiunto', text : '', severity : 'success', id: 0
+        });
         this.toggleEditMode()
       },
-      (error) => console.log(error)
+      (error) => {
+        this.notificationService.addNotification({
+          title : 'Errore durante l\'aggiunta', text : '', severity : 'critical', id: 0
+        });
+      }
     );
 
   }
