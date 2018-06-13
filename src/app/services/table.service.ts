@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { Event, Table, Gamer } from '../models';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { environment } from 'environments/environment';
 
 @Injectable()
 export class TableService {
   constructor(
     private http: HttpClient
   ) { }
-  private tableUrl = 'http://localhost:5000/v1/table/';
+  private apiUrl = environment.apiUrl;
+
+  private tableUrl = this.apiUrl + '/table/';
 
   private httpOptions = {
     headers: new HttpHeaders({

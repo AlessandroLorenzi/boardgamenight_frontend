@@ -3,21 +3,24 @@ import { Event, Table, Gamer } from '../models';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { environment } from 'environments/environment';
 
 @Injectable()
 export class GamerService {
   constructor(
     private http: HttpClient
   ) { }
+  private apiUrl = environment.apiUrl;
+
   loggedInUser = new Subject();
 
   private access_token: string;
   private refresh_token: string;
   private refresh_token_timer;
 
-  private gamerUrl = 'http://localhost:5000/v1/gamer/';
-  private authUrl = 'http://localhost:5000/v1/auth';
-  private refreshUrl = 'http://localhost:5000/v1/refresh';
+  private gamerUrl = this.apiUrl + '/gamer/';
+  private authUrl = this.apiUrl + '/auth';
+  private refreshUrl = this.apiUrl + '/refresh';
 
   private httpOptions = {
     headers: new HttpHeaders({
