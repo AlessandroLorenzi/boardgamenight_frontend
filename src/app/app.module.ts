@@ -8,6 +8,10 @@ import { EventComponent } from './event/event.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { EventDetailsComponent } from './event/event-details/event-details.component';
 
+import { EventService } from './services/event.service';
+import { GamerService } from './services/gamer.service';
+import { NotificationService } from './services/notification.service';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EventEditComponent } from './event/event-edit/event-edit.component';
 import { NewEventComponent } from './event/new-event/new-event.component';
@@ -35,7 +39,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [EventService, GamerService, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

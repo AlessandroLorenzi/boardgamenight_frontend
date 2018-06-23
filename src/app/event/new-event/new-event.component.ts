@@ -22,7 +22,6 @@ export class NewEventComponent implements OnInit {
     org: new FormControl('', Validators.required),
     place: new FormControl('', Validators.required),
   });;
-
   constructor(
     private eventService: EventService,
     private route: ActivatedRoute,
@@ -30,7 +29,6 @@ export class NewEventComponent implements OnInit {
     private notificationService: NotificationService,
   ) {
   }
-
 
   onSaveEvent(){
     let newEvent = new Event ()

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Event, Table, Gamer } from '../models';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { environment } from 'environments/environment';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class GamerService {
   ) { }
   private apiUrl = environment.apiUrl;
 
-  loggedInUser = new Subject();
+  loggedInUser = new BehaviorSubject<string>(null);
 
   private access_token: string;
   private refresh_token: string;
@@ -22,7 +22,7 @@ export class GamerService {
   private authUrl = this.apiUrl + '/auth';
   private refreshUrl = this.apiUrl + '/refresh';
 
-  private httpOptions = {
+  httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
     })

@@ -8,6 +8,12 @@
     Starts: {{event.startdate}}
   </li>
 </ul>
-<button type="button" (click)="newEvent()" >Nuovo Evento</button>
+
+<div *ngIf="username">
+<a  routerLink="/event/new" >Nuovo Evento</a>
+</div>
+<div *ngIf="!username">
+  <p>Devi essere loggato per creare un evento
+</div>
 
 </div>
