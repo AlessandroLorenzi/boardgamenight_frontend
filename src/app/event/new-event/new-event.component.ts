@@ -13,23 +13,45 @@ import { NotificationService } from '../../services/notification.service';
 export class NewEventComponent implements OnInit {
   selectedEvent: Event;
   eventId: number;
-  eventForm = new FormGroup ({
-    name: new FormControl('', Validators.required),
-    startdate: new FormControl('', Validators.required),
-    starttime: new FormControl('', Validators.required),
-    enddate: new FormControl('', Validators.required),
-    endtime: new FormControl('', Validators.required),
-    org: new FormControl('', Validators.required),
-    place: new FormControl('', Validators.required),
-  });;
+  eventForm : FormGroup;
+
   constructor(
     private eventService: EventService,
     private route: ActivatedRoute,
     private router: Router,
     private notificationService: NotificationService,
   ) {
-  }
 
+    this.eventForm = new FormGroup ({
+      name: new FormControl('', Validators.required),
+      startdate: new FormControl(this.getToday(), Validators.required),
+      starttime: new FormControl('20:30:00', Validators.required),
+      enddate: new FormControl(this.getToday(), Validators.required),
+      endtime: new FormControl('23:59:00', Validators.required),
+      org: new FormControl('', Validators.required),
+      place: new FormControl('', Validators.required),
+    });
+  }
+  getToday(){
+    let today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    let strdd = ''
+    let strmm = ''
+
+    if (dd < 10) {
+      strdd = '0'+dd;
+    } else {
+      strdd = ''+dd;
+    }
+    if (mm < 10) {
+      strmm = '0'+mm;
+    } else {
+      strmm = ''+mm;
+    }
+    return yyyy+'-'+strmm+'-'+strdd
+  }
   onSaveEvent(){
     let newEvent = new Event ()
     newEvent.id = this.eventForm.value.id;
@@ -38,7 +60,7 @@ export class NewEventComponent implements OnInit {
     newEvent.enddate = this.eventForm.value.enddate + ' ' + this.eventForm.value.endtime;
     newEvent.org = this.eventForm.value.org;
     newEvent.place = this.eventForm.value.place;
-
+    console.log(newEvent.enddate)
     this.eventService.newEvent(newEvent).subscribe(
       (data) => {
         this.notificationService.addNotification({
