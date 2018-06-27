@@ -9,7 +9,14 @@ import { environment } from 'environments/environment';
 export class GamerService {
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+    if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token')) {
+      this.internal_login(
+        localStorage.getItem('refresh_token'),
+        localStorage.getItem('access_token')
+      )
+    }
+  }
   private apiUrl = environment.apiUrl;
 
   loggedInUser = new BehaviorSubject<string>(null);
@@ -21,6 +28,7 @@ export class GamerService {
   private gamerUrl = this.apiUrl + '/gamer/';
   private authUrl = this.apiUrl + '/auth';
   private refreshUrl = this.apiUrl + '/refresh';
+  private whoami = this.apiUrl + '/whoami';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -39,9 +47,8 @@ export class GamerService {
     return new Promise<string>(
       (resolve,reject) => {
         this.http.post(this.authUrl, login, this.httpOptions).subscribe(
-          (data) => {
-            this.handle_jwt(data);
-            this.loggedInUser.next(login.username);
+          (data:{'refresh_token': string, 'access_token': string}) => {
+            this.internal_login(data.refresh_token, data.access_token);
             resolve("ok");
           },
           (error) => reject("No login")
@@ -50,11 +57,23 @@ export class GamerService {
     );
   }
 
-  handle_jwt(jwt){
-    this.refresh_token = jwt.refresh_token;
-    this.update_access_token(jwt.access_token);
+  internal_login(refresh_token, access_token){
+    this.refresh_token = refresh_token;
+    localStorage.setItem('refresh_token', refresh_token);
+
+    this.update_access_token(access_token);
+
     this.refresh_token_timer =
       setInterval(()=>{this.refresh_jwt()},5*1000*60);
+
+    this.http.get(this.whoami, this.httpOptions
+      ).subscribe(
+      (data) =>
+      {
+        this.loggedInUser.next(data['username']);
+      },
+      (data) => console.log(data)
+    );
   }
 
   refresh_jwt() {
@@ -76,6 +95,7 @@ export class GamerService {
   }
 
   update_access_token(access_token:string){
+    localStorage.setItem('access_token', access_token);
     this.access_token = access_token;
     this.httpOptions = {
       headers: new HttpHeaders({
@@ -87,8 +107,13 @@ export class GamerService {
 
   logout(){
     clearTimeout(this.refresh_token_timer);
-    this.update_access_token('');
-    this.refresh_token = '';
+
+    this.refresh_token = null;
+    localStorage.removeItem('refresh_token');
+
+    this.access_token = null;
+    localStorage.removeItem('access_token');
+
     this.loggedInUser.next(null);
   }
 }
