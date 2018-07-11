@@ -27,6 +27,7 @@ export class EventService {
   }
 
   editEvent (id, editedEvent:Event) {
+    console.log( this.gamerService.httpOptions);
     return this.http.put(this.eventUrl + id, editedEvent, this.gamerService.httpOptions);
   }
   deleteEvent (id) {

@@ -21,4 +21,11 @@ export class TableService {
   addTable (newTable:Table) {
     return this.http.post(this.tableUrl + '0', newTable, this.gamerService.httpOptions);
   }
+
+  subscribe (id){
+    return this.http.post(this.tableUrl + id + '/subscribe', {}, this.gamerService.httpOptions);
+  }
+  unsubscribe (id){
+    return this.http.delete(this.tableUrl +  id + '/subscribe', this.gamerService.httpOptions);
+  }
 }

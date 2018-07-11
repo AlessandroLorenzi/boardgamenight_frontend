@@ -88,6 +88,25 @@ export class EventDetailsComponent implements OnInit {
       (error) => console.log(error)
     );
   }
+
+  subscribe(table_id) {
+
+    this.tableService.subscribe(table_id).subscribe(
+      (data) => {
+        this.getEvent(this.eventId);
+      },
+      (error) => console.log(error)
+    );
+
+  }
+  unsubscribe(table_id) {
+    this.tableService.unsubscribe(table_id).subscribe(
+      (data) => {
+        this.getEvent(this.eventId);
+      },
+      (error) => console.log(error)
+    );
+  }
   ngOnInit() {
 
   }

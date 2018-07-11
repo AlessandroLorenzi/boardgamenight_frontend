@@ -12,10 +12,19 @@ Organizzato da : {{selectedEvent.org}} <br/>
 
 <h3>Tavoli</h3>
 <ul>
-  <li *ngFor="let table of selectedEvent.tables" > {{table.game}}
-    <button type="button"
-      (click)="removeTable(table.id)"
-    >-</button>
+  <li *ngFor="let table of selectedEvent.tables" >
+      <button type="button"
+        (click)="removeTable(table.id)"
+      >Remove Table</button>
+      {{table.game}}
+
+      <button type="button"
+        (click)="subscribe(table.id)"
+      >Iscriviti</button>
+      <button type="button"
+        (click)="unsubscribe(table.id)"
+      >Disiscriviti</button>
+      <br><pre>debug: {{table | json :spacing}}</pre>
   </li>
 </ul>
 <form [formGroup]="tableForm">
