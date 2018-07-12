@@ -23,8 +23,9 @@ Organizzato da : {{selectedEvent.org}} <br/>
       >Iscriviti</button>
       <button type="button"
         (click)="unsubscribe(table.id)"
-      >Disiscriviti</button>
-      <br><pre>debug: {{table | json :spacing}}</pre>
+      >Disiscriviti</button> <br/>
+      Iscritti:
+      <div *ngFor="let tablesubscribtion of table.tablesubscribtions">{{tablesubscribtion.gamer_username}},</div>
   </li>
 </ul>
 <form [formGroup]="tableForm">
