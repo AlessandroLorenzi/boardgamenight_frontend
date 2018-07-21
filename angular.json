@@ -26,7 +26,15 @@
             "scripts": []
           },
           "configurations": {
-            "production": {
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ]
+            },
+            "prod": {
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -51,8 +59,11 @@
             "browserTarget": "bgn-frontend:build"
           },
           "configurations": {
-            "production": {
-              "browserTarget": "bgn-frontend:build:production"
+            "prod": {
+              "browserTarget": "bgn-frontend:build:prod"
+            },
+            "local": {
+              "browserTarget": "bgn-frontend:build:local"
             }
           }
         },

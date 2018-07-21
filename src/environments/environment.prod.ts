@@ -1,5 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.project.url'
-
+  apiUrl: 'https://api.boardgamenight.alorenzi.eu/v1'
 };
