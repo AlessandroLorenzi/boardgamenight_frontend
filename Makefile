@@ -1,4 +1,7 @@
 
+install:
+	docker run -u $(shell id -u) --rm -v $(shell pwd):/app trion/ng-cli npm install
+
 build:
 	docker run -u $(shell id -u) --rm -v $(shell pwd):/app trion/ng-cli ng build --configuration=prod
 
