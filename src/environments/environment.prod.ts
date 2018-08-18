@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://apiboardgamenight.alorenzi.eu/v1'
+  apiUrl: 'https://boardgamenight.alorenzi.eu/api/v1'
 };
