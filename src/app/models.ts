@@ -6,6 +6,7 @@ export class Event {
       enddate: string;
       tables: Table[];
       org: string;
+      image: string;
       place: string;
 }
 

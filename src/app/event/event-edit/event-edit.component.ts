@@ -39,6 +39,7 @@ export class EventEditComponent implements OnInit {
           startdate: new FormControl(this.selectedEvent.startdate, Validators.required),
           enddate: new FormControl(this.selectedEvent.enddate, Validators.required),
           org: new FormControl(this.selectedEvent.org, Validators.required),
+          image: new FormControl(this.selectedEvent.image, Validators.required),
           place: new FormControl(this.selectedEvent.place, Validators.required)
         });
       },

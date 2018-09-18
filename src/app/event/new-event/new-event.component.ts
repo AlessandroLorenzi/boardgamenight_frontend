@@ -28,6 +28,7 @@ export class NewEventComponent implements OnInit {
       enddate: new FormControl(this.getToday(), Validators.required),
       endtime: new FormControl('23:59:00', Validators.required),
       org: new FormControl('', Validators.required),
+      image: new FormControl('', Validators.required),
       place: new FormControl('', Validators.required),
     });
   }
