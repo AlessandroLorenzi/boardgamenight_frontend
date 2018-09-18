@@ -9,7 +9,6 @@ import { NotificationService } from '../../services/notification.service';
 @Component({
   selector: 'app-event-edit',
   templateUrl: './event-edit.component.html',
-  styleUrls: ['./event-edit.component.css'],
 })
 export class EventEditComponent implements OnInit {
   selectedEvent: Event;

@@ -8,7 +8,6 @@ import { NotificationService } from '../../services/notification.service';
 @Component({
   selector: 'app-event-edit',
   templateUrl: './new-event.component.html',
-  styleUrls: ['./new-event.component.css'],
 })
 export class NewEventComponent implements OnInit {
   selectedEvent: Event;

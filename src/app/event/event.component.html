@@ -1,19 +1,42 @@
-<div >
-<ul>
-  <li *ngFor="let event of eventList">
-    <strong>
-      <a routerLink="/event/{{event.id}}">
-        {{event.name}}</a>
-    </strong>
-    Starts: {{event.startdate}}
-  </li>
-</ul>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="text-center section-title">
+				<h1 class="display-4">Events</h1>
+				<div *ngIf="user">
+					<a routerLink="/event/new"><i class="fas fa-plus-square"></i>
+						Nuovo Evento</a>
+				</div>
+				<div *ngIf="!user">
+					<p>
+						Devi essere <a href="#" data-toggle="modal"
+							data-target="#loginModal">loggato</a> per creare un evento. <br>
+						Oppure <a href="#" data-toggle="modal"
+							data-target="#registerModal">registrati</a> se non sei ancora un
+						utente
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row my-3">
+		<div class="col-md-4" *ngFor="let event of eventList">
+			<div class="card border-info">
+				<img class="card-img-top" src="assets/img/chess.jpg"
+					alt="Card image cap">
+				<div class="card-body">
+					<h5 class="card-title">
+						<a routerLink="/event/{{event.id}}">{{event.name}}</a>
+					</h5>
+					<h6 class="card-subtitle mb-2 text-muted">Data e ora:
+						{{event.startdate}}</h6>
+					<p class="card-text">
+						<strong>Tavoli:</strong> {{ event.ntables || 'nessuno'}} <br>
+						<strong>Organizzatore:</strong> {{ event.org || 'nessuno'}}
 
-<div *ngIf="username">
-<a  routerLink="/event/new" >Nuovo Evento</a>
-</div>
-<div *ngIf="!username">
-  <p>Devi essere loggato per creare un evento
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
-</div>

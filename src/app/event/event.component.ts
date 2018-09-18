@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EventService } from '../services/event.service';
 import { GamerService } from '../services/gamer.service';
 import { ActivatedRoute, Router } from "@angular/router";
-import { Event } from '../models';
+import { Event, Gamer } from '../models';
 
 @Component({
   selector: 'app-event',
@@ -11,7 +11,7 @@ import { Event } from '../models';
 })
 export class EventComponent implements OnInit, OnDestroy {
   eventList: Event[] = [];
-  username: string;
+  user: Gamer;
   loggedInUser ;
   constructor(
     private eventService: EventService,
@@ -25,7 +25,7 @@ export class EventComponent implements OnInit, OnDestroy {
       (error) => console.log(error)
     );
     this.loggedInUser = this.gamerService.loggedInUser.subscribe(
-      (username) => {this.username = username}
+      (gamer) => {this.user = gamer;}
     )
 
   }

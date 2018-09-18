@@ -1,41 +1,60 @@
-<form
-  [formGroup]="eventForm"
->
-  Evento:
-  <input
-    formControlName="name"
-  />
-  <p>
-  ⏰ Inizio
-  <input
-    type="date"
-    formControlName="startdate"
-  />
-  <input
-    type="time"
-    formControlName="starttime"
-    step="1"
-  />
-  <br/>
-  ⏰ Fine
-  <input
-    type="date"
-    formControlName="enddate"
-  />
-  <input
-    type="time"
-    formControlName="endtime"
-    step="1"
-  /> <br/>
-  Organizzato da : <input
-    formControlName="org"
-  /> <br/>
-  🗺:
-  <input
-    formControlName="place"
-  />
-  </p>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<div class="section-title">
+				<h1 class="display-3">Crea un nuovo evento</h1>
+			</div>
+		</div>
+	</div>
+	<form [formGroup]="eventForm">
+		<div class="row align-items-center section-body">
 
-</form>
-<button type="button" (click)="onSaveEvent()" >Salva</button>
-<button type="button" (click)="toggleEditMode()">Annulla</button>
+			<div class="col-md-6">
+				<dl class="row">
+					<dt class="col-md-6 text-right">Nome</dt>
+					<dd class="col-md-6">
+						<input formControlName="name" />
+					</dd>
+					<dt class="col-md-6 text-right">Inizio</dt>
+					<dd class="col-md-3">
+						<input type="date" formControlName="startdate" />
+					</dd>
+					<dd class="col-md-3">
+						<input type="time" formControlName="starttime" step="1" />
+					</dd>
+					<dt class="col-md-6 text-right">Fine</dt>
+					<dd class="col-md-3">
+						<input type="date" formControlName="enddate" />
+					</dd>
+					<dd class="col-md-3">
+						<input type="time" formControlName="endtime" step="1" />
+					</dd>
+					<dt class="col-md-6 text-right">Organizzatore</dt>
+					<dd class="col-md-6">
+						<input formControlName="org" />
+					</dd>
+					<dt class="col-md-6 text-right">Luogo</dt>
+					<dd class="col-md-6">
+						<input formControlName="place" />
+					</dd>
+				</dl>
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<div class="btn-group" role="group">
+							<a routerLink="edit" (click)="onSaveEvent()"
+								class="btn btn-primary">Salva</a> <a (click)="toggleEditMode()"
+								class="btn btn-danger">Annulla</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<img class="img-thumbnail mb-3" src="assets/img/chess.jpg"
+					alt="Card image cap">
+			</div>
+		</div>
+	</form>
+</div>
+
+
+

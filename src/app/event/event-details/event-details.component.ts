@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EventService } from '../../services/event.service';
 import { TableService } from '../../services/table.service';
 import { ActivatedRoute, Router } from "@angular/router";
-import { Event, Table } from '../../models';
+import { Event, Table, Gamer } from '../../models';
+import { GamerService } from '../../services/gamer.service';
 import { NotificationService } from '../../services/notification.service';
 
 @Component({
@@ -15,10 +16,12 @@ import { NotificationService } from '../../services/notification.service';
 export class EventDetailsComponent implements OnInit {
   eventId: string;
   selectedEvent: Event;
-
+  user: Gamer;
+  eventForm = new FormGroup ({
+  });
   tableForm = new FormGroup ({
     game: new FormControl('', Validators.required)
-  });;
+  });
 
   constructor(
     private eventService: EventService,
@@ -26,18 +29,20 @@ export class EventDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private notificationService: NotificationService,
-
+    private gamerService: GamerService,
   ) {
     this.route.params.subscribe(
       params => {
         this.eventId = params['id'];
-        this.getEvent(params['id'])
+        this.getEvent(params['id']);
       }
     );
   }
+
   getEvent(id: string){
     this.eventService.getEvent(id).subscribe(
       (data) => {
+        console.log(data);
         this.selectedEvent = data;
       },
       (error) => {
@@ -45,6 +50,8 @@ export class EventDetailsComponent implements OnInit {
       }
     );
   }
+
+
 
   deleteEvent(){
     this.eventService.deleteEvent(this.eventId).subscribe(
@@ -70,7 +77,7 @@ export class EventDetailsComponent implements OnInit {
     let table = new Table();
     table.game = this.tableForm.value.game;
     table.event_id = this.eventId;
-
+    console.log(table);
     this.tableService.addTable(table).subscribe(
       (data) => {
         this.tableForm.reset();
@@ -108,7 +115,19 @@ export class EventDetailsComponent implements OnInit {
     );
   }
   ngOnInit() {
-
+    this.gamerService.loggedInUser.subscribe(
+      user => this.user = user
+    );
   }
-
+  userInTable(qgamer:Gamer, gamers: Gamer[]){
+    console.log(qgamer);
+    return gamers.find(cgamer => {
+      return cgamer.id == qgamer.id;
+    }) ? true : false;
+  }
+  
+   parseDate(date) {
+    return new Date(Date.parse(date));
+  }
+  
 }

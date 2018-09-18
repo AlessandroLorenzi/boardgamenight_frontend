@@ -1,38 +1,69 @@
-<form
-class="form-group"
-[formGroup]="gamerForm"
->
-  <label for="username">Username</label><br/>
-  <input
-    type="text"
-    class="form-control"
-    id="username"
-    formControlName="username"
-  ><br/>
-  <label for="password">Password</label><br/>
-  <input
-    type="password"
-    class="form-control"
-    formControlName="password"
-    id="password"
-  ><br/>
-  <label for="repassword">Ripeti Password</label><br/>
-  <input
-    type="password"
-    class="form-control"
-    formControlName="repassword"
-    id="repassword"
-  ><br/>
-  <label for="email">E-Mail</label><br/>
-  <input
-    type="text"
-    class="form-control"
-    formControlName="email"
-    id="email"
-  ><br/>
-  <button type="button"
-    (click)="newGamer()"
-    [disabled]="!gamerForm.valid"
-  >Iscriviti</button>
-</form>
-<p *ngIf = "passwordMismatched">Password differenti</p>
+
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog"
+	aria-labelledby="loginModal" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="registerModalTitle">Registrati</h3>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form class="form-signin" [formGroup]="gamerForm">
+					<img class="mb-4" src="assets/img/logo.jpg" alt="" width="72"
+						height="72">
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<i class="fas fa-user"></i>
+							</div>
+						</div>
+						<input type="text" class="form-control" id="username"
+							formControlName="username" placeholder="Nome utente">
+					</div>
+					<div class="input-group  mb-3">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<i class="fas fa-envelope"></i>
+							</div>
+						</div>
+						<input type="text" class="form-control" formControlName="email" 
+							id="email" placeholder="Indirizzo email">
+					</div>
+
+					<div class="input-group  mb-3">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<i class="fas fa-key"></i>
+							</div>
+						</div>
+						<input type="password" class="form-control" placeholder="Password"
+							formControlName="password" id="password">
+					</div>
+					<div class="input-group  mb-3">
+						<div class="input-group-prepend">
+							<div class="input-group-text">
+								<i class="fas fa-key"></i>
+							</div>
+						</div>
+						<input type="password" class="form-control" placeholder="Ripeti la password"
+							formControlName="repassword" id="password">
+					</div>
+					<p *ngIf="passwordMismatched">Password differenti</p>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+					<button class="btn btn-primary" type="button" (click)="newGamer()" data-dismiss="modal" data-dismiss="modal"
+						[disabled]="!gamerForm.valid" >Iscriviti</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

@@ -10,10 +10,10 @@ export class Event {
 }
 
 export class Table {
-      id: string;
-      game: string;
-      event_id: string;
-      gamers: Gamer[];
+    id: string;
+    game: string;
+    event_id: string;
+    gamers: Gamer[];
 }
 
 export class Gamer {

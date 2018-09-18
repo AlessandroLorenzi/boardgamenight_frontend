@@ -1,3 +1,4 @@
+import { Gamer } from '../models';
 import { Component, OnInit } from '@angular/core';
 import { GamerService } from '../services/gamer.service';
 
@@ -7,7 +8,7 @@ import { GamerService } from '../services/gamer.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  username: string;
+  user: Gamer;
   constructor(
     private gamerService: GamerService,
   ) {
@@ -15,8 +16,8 @@ export class NavbarComponent implements OnInit {
       username => this.set_username(username)
     )
   }
-  set_username(username){
-    this.username = username;
+  set_username(user){
+    this.user = user;
   }
   ngOnInit() {
   }

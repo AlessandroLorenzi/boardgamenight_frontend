@@ -1,41 +1,113 @@
-<div *ngIf="selectedEvent ">
-<h2>{{selectedEvent.name}}</h2>
+<div *ngIf="selectedEvent">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<div class="section-title">
+					<h1 class="display-3">{{selectedEvent.name}}</h1>
+				</div>
+			</div>
+		</div>
+		<div class="row align-items-center section-body">
+			<div class="col-md-6">
+				<dl class="row">
+					<dt class="col-md-6 text-right">Inizio</dt>
+					<dd class="col-md-6">{{selectedEvent.startdate }}</dd>
+					<dt class="col-md-6 text-right">Fine</dt>
+					<dd class="col-md-6">{{selectedEvent.enddate}}</dd>
+					<dt class="col-md-6 text-right">Organizzatore</dt>
+					<dd class="col-md-6">{{selectedEvent.org}}</dd>
+					<dt class="col-md-6 text-right">Luogo</dt>
+					<dd class="col-md-6">{{selectedEvent.place}}</dd>
+				</dl>
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<div class="btn-group" role="group">
+							<a routerLink="edit" routerLinkActive="active"
+								class="btn btn-primary"
+								*ngIf="user ? user.id == selectedEvent.owner : false">Modifica</a>
+							<a routerLink="/events" routerLinkActive="active"
+								class="btn btn-info">Lista Eventi</a>
+							<button type="button" (click)="deleteEvent()"
+								*ngIf="user ? user.id == selectedEvent.owner : false"
+								class="btn btn-danger">Elimina</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<img class="img-thumbnail mb-3" src="assets/img/chess.jpg"
+					alt="Card image cap">
+			</div>
+		</div>
 
-<p>
-⏰ {{selectedEvent.startdate }} - {{selectedEvent.enddate}} <br/>
-Organizzato da : {{selectedEvent.org}} <br/>
-🗺: {{selectedEvent.place}} <br/>
-</p>
-<a routerLink="edit" routerLinkActive="active">Modifica</a>
-<a routerLink="/events" routerLinkActive="active">Lista Eventi</a>
-<button type="button" (click)="deleteEvent()">Elimina</button>
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<div class="section-title">
+					<h1 class="display-4">Tavoli</h1>
+					<form *ngIf="user" [formGroup]="tableForm">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1">Aggiungi
+									un nuovo tavolo:</span>
+							</div>
+							<input type="text" class="form-control" formControlName="game"
+								placeholder="Nome del tavolo" aria-label="Username"
+								aria-describedby="basic-addon1">
+							<div class="input-group-append">
+								<button type="button" class="btn btn-outline-success"
+									(click)="addTable()" [disabled]="!tableForm.valid">
+									<i class="fas fa-plus-circle"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 
-<h3>Tavoli</h3>
-<ul>
-  <li *ngFor="let table of selectedEvent.tables" >
-      <button type="button"
-        (click)="removeTable(table.id)"
-      >Remove Table</button>
-      {{table.game}}
 
-      <button type="button"
-        (click)="subscribe(table.id)"
-      >Iscriviti</button>
-      <button type="button"
-        (click)="unsubscribe(table.id)"
-      >Disiscriviti</button> <br/>
-      Iscritti:
-      <div *ngFor="let tablesubscribtion of table.tablesubscribtions">{{tablesubscribtion.gamer_username}},</div>
-  </li>
-</ul>
-<form [formGroup]="tableForm">
-  <input type="text"
-    formControlName="game"
-  />
-  <button type="button"
-    (click)="addTable()"
-    [disabled]="!tableForm.valid"
-  >+</button>
-</form>
+		<div class="row my-3">
+			<div class="col-sm-6" *ngFor="let table of selectedEvent.tables">
+				<div class="card m-3">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-6">
+								<h3>
+									<strong> {{table.game}}  <span class="text-danger" *ngIf=" user && user.id == table.owner" title="Rimuovi il tavolo" (click)="removeTable(table.id)"><i class="fas fa-times-circle"></i></span> </strong>
+								</h3>
+							</div>
 
+							<div class="col-6">
+								<div class="text-right" *ngIf="user">
+									<div class="btn-group" role="group">
+										<button type="button" *ngIf="userInTable(user, table.gamers)"
+											(click)="unsubscribe(table.id)" class="btn btn-danger"
+											title="Disiscriviti">
+											<i class="fas fa-minus-circle"></i> Disiscriviti
+										</button>
+										<button type="button" (click)="subscribe(table.id)" href="#"
+											class="btn btn-primary" title="Iscriviti"
+											*ngIf="! userInTable(user, table.gamers)">
+											<i class="fas fa-plus-circle"></i> Iscriviti
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-5">Partecipanti:</div>
+							<div class="col-7">
+								<span *ngIf="!table.gamers.length">Nessuno</span>
+								<ul *ngIf="table.gamers.length">
+									<li *ngFor="let gamer of table.gamers">{{gamer.username}}</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
