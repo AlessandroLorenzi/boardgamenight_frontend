@@ -6,39 +6,40 @@
 			</div>
 		</div>
 	</div>
-	<form [formGroup]="eventForm">
-		<div class="row align-items-center section-body">
-
-			<div class="col-md-6">
-				<dl class="row">
-					<dt class="col-md-6 text-right">Nome</dt>
-					<dd class="col-md-6"><input formControlName="name" /></dd>
-					<dt class="col-md-6 text-right">Inizio</dt>
-					<dd class="col-md-6"><input formControlName="startdate" /></dd>
-					<dt class="col-md-6 text-right">Fine</dt>
-					<dd class="col-md-6"><input formControlName="enddate" /></dd>
-					<dt class="col-md-6 text-right">Organizzatore</dt>
-					<dd class="col-md-6"><input formControlName="org" /></dd>
-					<dt class="col-md-6 text-right">Luogo</dt>
-					<dd class="col-md-6"><input formControlName="place" /></dd>
-				</dl>
-				<div class="row">
-					<div class="col-md-12 text-center">
-						<div class="btn-group" role="group">
-							<a routerLink="edit" (click)="onSaveEvent()"
-								class="btn btn-primary"
-								>Salva</a>
-							<a (click)="toggleEditMode()"
-								class="btn btn-danger">Annulla</a>
+	<div *ngIf="eventForm">
+		<form [formGroup]="eventForm">
+			<div class="row align-items-center section-body">
+				<div class="col-md-6">
+					<dl class="row">
+						<dt class="col-md-6 text-right">Nome</dt>
+						<dd class="col-md-6"><input formControlName="name" /></dd>
+						<dt class="col-md-6 text-right">Inizio</dt>
+						<dd class="col-md-6"><input formControlName="startdate" /></dd>
+						<dt class="col-md-6 text-right">Fine</dt>
+						<dd class="col-md-6"><input formControlName="enddate" /></dd>
+						<dt class="col-md-6 text-right">Organizzatore</dt>
+						<dd class="col-md-6"><input formControlName="org" /></dd>
+						<dt class="col-md-6 text-right">Luogo</dt>
+						<dd class="col-md-6"><input formControlName="place" /></dd>
+					</dl>
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<div class="btn-group" role="group">
+								<a routerLink="edit" (click)="onSaveEvent()"
+									class="btn btn-primary"
+									>Salva</a>
+								<a (click)="toggleEditMode()"
+									class="btn btn-danger">Annulla</a>
+							</div>
 						</div>
 					</div>
 				</div>
+				<div class="col-md-6">
+					<img class="img-thumbnail mb-3" src="assets/img/chess.jpg"
+						alt="Card image cap">
+				</div>
 			</div>
-			<div class="col-md-6">
-				<img class="img-thumbnail mb-3" src="assets/img/chess.jpg"
-					alt="Card image cap">
-			</div>
-		</div>
-	</form>
+		</form>
+	</div>
 </div>
 

@@ -32,13 +32,14 @@ export class EventEditComponent implements OnInit {
   getEvent(id: string){
     this.eventService.getEvent(id).subscribe(
       (data) => {
+        console.log(data);
         this.selectedEvent = data;
         this.eventForm = new FormGroup ({
           name: new FormControl(this.selectedEvent.name, Validators.required),
           startdate: new FormControl(this.selectedEvent.startdate, Validators.required),
           enddate: new FormControl(this.selectedEvent.enddate, Validators.required),
           org: new FormControl(this.selectedEvent.org, Validators.required),
-          place: new FormControl(this.selectedEvent.place, Validators.required),
+          place: new FormControl(this.selectedEvent.place, Validators.required)
         });
       },
       (error) => console.log(error)
