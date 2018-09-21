@@ -21,7 +21,7 @@
 	<div class="row my-3">
 		<div class="col-md-4" *ngFor="let event of eventList">
 			<div class="card border-info">
-				<img class="card-img-top" src="assets/img/chess.jpg"
+				<img class="card-img-top" [src]="event.image"
 					alt="Card image cap">
 				<div class="card-body">
 					<h5 class="card-title">
@@ -39,4 +39,3 @@
 		</div>
 	</div>
 </div>
-

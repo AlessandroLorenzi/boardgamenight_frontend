@@ -59,6 +59,7 @@ export class NewEventComponent implements OnInit {
     newEvent.startdate = this.eventForm.value.startdate + ' ' + this.eventForm.value.starttime;
     newEvent.enddate = this.eventForm.value.enddate + ' ' + this.eventForm.value.endtime;
     newEvent.org = this.eventForm.value.org;
+    newEvent.image = this.eventForm.value.image;
     newEvent.place = this.eventForm.value.place;
     console.log(newEvent.enddate)
     this.eventService.newEvent(newEvent).subscribe(
